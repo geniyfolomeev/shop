@@ -1,0 +1,9 @@
+port: "8000"
+
+db:
+  host: "dpg-cenhutla4991ihni3iig-a.frankfurt-postgres.render.com"
+  port: "5432"
+  username: "admin"
+  password: "gXes63RQOpvzZAuUZptuRBB3ifmLtZCk"
+  name: "shop_luw4"
+  ssl_mode: "require"
