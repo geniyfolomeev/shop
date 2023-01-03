@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"shop/pkg/service"
 )
@@ -15,18 +16,24 @@ func NewHandler(services *service.Service) *Handler {
 
 func (h *Handler) InitRoutes() *gin.Engine {
 	router := gin.New()
+	router.Use(cors.Default())
 
 	api := router.Group("/api")
 	{
 		api.POST("/register", h.register)
 		api.POST("/login", h.login)
-		products := router.Group("/products")
+
+		products := api.Group("/products")
 		{
-			products.POST("/", h.createProduct)
 			products.GET("/", h.getAllProducts)
 			products.GET("/:id", h.getProductById)
-			products.PUT("/:id", h.updateProduct)
-			products.DELETE("/:id", h.deleteProduct)
+
+			edit := products.Group("/edit", h.userIdentity)
+			{
+				edit.POST("/", h.createProduct)
+				edit.PUT("/:id", h.updateProduct)
+				edit.DELETE("/:id", h.deleteProduct)
+			}
 		}
 	}
 
