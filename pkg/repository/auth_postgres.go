@@ -24,6 +24,14 @@ func (r *AuthPostgres) CreateUser(user shop.User) (int, error) {
 		return 0, err
 	}
 
+	query = fmt.Sprintf(
+		"INSERT INTO %s (user_id, dark_theme, role) "+
+			"values ($1, $2, $3)", settingsTable)
+	_, err := r.db.Exec(query, id, false, "user")
+	if err != nil {
+		return 0, err
+	}
+
 	return id, nil
 }
 

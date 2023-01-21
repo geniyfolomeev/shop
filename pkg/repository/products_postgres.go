@@ -29,14 +29,14 @@ func (r *ProductsListPostgres) CreateProduct(product shop.Product) (int, error) 
 
 func (r *ProductsListPostgres) GetAllProducts() ([]shop.Product, error) {
 	var products []shop.Product
-	query := fmt.Sprintf("SELECT title, price, description, category, translate(encode(image, 'base64'), E'\n', '') as image, rating FROM %s", productsTable)
+	query := fmt.Sprintf("SELECT id, title, price, description, category, translate(encode(image, 'base64'), E'\n', '') as image, rating FROM %s", productsTable)
 	err := r.db.Select(&products, query)
 	return products, err
 }
 
 func (r *ProductsListPostgres) GetProductById(id int) (shop.Product, error) {
 	var product shop.Product
-	query := fmt.Sprintf("SELECT title, price, description, category, translate(encode(image, 'base64'), E'\n', '') as image, rating FROM %s WHERE id=$1", productsTable)
+	query := fmt.Sprintf("SELECT id, title, price, description, category, translate(encode(image, 'base64'), E'\n', '') as image, rating FROM %s WHERE id=$1", productsTable)
 	err := r.db.Get(&product, query, id)
 	return product, err
 }

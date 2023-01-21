@@ -18,6 +18,7 @@ const (
 	usersTable      = "users"
 	categoriesTable = "categories"
 	productsTable   = "products"
+	settingsTable   = "user_settings"
 )
 
 func NewPostgresDB(cfg Config) (*sqlx.DB, error) {
